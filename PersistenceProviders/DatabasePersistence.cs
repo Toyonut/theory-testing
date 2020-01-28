@@ -11,7 +11,7 @@ namespace db_app.PersistenceProviders
             using (var db = new StorageContext())
             {
                 var stored = db.StoredStrings;
-                
+
                 foreach (var item in stored)
                 {
                     db.Remove(item);
@@ -40,7 +40,7 @@ namespace db_app.PersistenceProviders
                 i.stringToStore = item;
                 db.Remove(i);
                 db.SaveChanges();
-            }            
+            }
         }
 
         public List<string> ReturnItems()
