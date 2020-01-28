@@ -25,8 +25,10 @@ namespace db_app.PersistenceProviders
         {
             using (var db = new StorageContext())
             {
-                var i = new StoredString();
-                i.stringToStore = item;
+                var i = new StoredString()
+                {
+                    stringToStore = item
+                };
                 db.Update(i);
                 db.SaveChanges();
             }
@@ -36,8 +38,10 @@ namespace db_app.PersistenceProviders
         {
             using (var db = new StorageContext())
             {
-                var i = new StoredString();
-                i.stringToStore = item;
+                var i = new StoredString()
+                {
+                    stringToStore = item
+                };
                 db.Remove(i);
                 db.SaveChanges();
             }
