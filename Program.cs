@@ -1,10 +1,10 @@
 ﻿using System;
-using db_app.PersistenceProviders;
-using db_app.Models;
+using theory_testing.PersistenceProviders;
+using theory_testing.Models;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace db_app
+namespace theory_testing
 {
     class Program
     {

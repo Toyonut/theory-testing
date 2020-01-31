@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace db_app.Models
+namespace theory_testing.Models
 {
     public class StorageContext : DbContext
     {

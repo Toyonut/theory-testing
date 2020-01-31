@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace db_app.PersistenceProviders
+namespace theory_testing.PersistenceProviders
 {
     public interface IPersistenceProvider
     {

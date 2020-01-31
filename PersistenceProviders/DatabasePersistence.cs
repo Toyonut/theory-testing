@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using db_app.Models;
+using theory_testing.Models;
 using System.Linq;
 using System;
 
-namespace db_app.PersistenceProviders
+namespace theory_testing.PersistenceProviders
 {
     public class DatabasePersistence : IPersistenceProvider
     {

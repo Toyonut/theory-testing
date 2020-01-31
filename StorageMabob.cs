@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using db_app.PersistenceProviders;
+using theory_testing.PersistenceProviders;
 
-namespace db_app
+namespace theory_testing
 {
     public class StorageMabob
     {

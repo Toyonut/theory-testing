@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace db_app.PersistenceProviders
+namespace theory_testing.PersistenceProviders
 {
     public class FilePersistence : IPersistenceProvider
     {

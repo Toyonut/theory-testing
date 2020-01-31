@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>db_app</RootNamespace>
+    <RootNamespace>theory_testing</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
