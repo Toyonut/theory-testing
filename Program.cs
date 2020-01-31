@@ -1,6 +1,8 @@
 ﻿using System;
 using db_app.PersistenceProviders;
 using db_app.Models;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace db_app
 {
@@ -8,7 +10,13 @@ namespace db_app
     {
         static void Main(string[] args)
         {
-            Func<StorageContext> contextFactory = () => new StorageContext();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            var configuration = builder.Build();
+
+            Func<StorageContext> contextFactory = () => new StorageContext(configuration);
             var persistenceType = new DatabasePersistence(contextFactory);
             var storageMabob = new StorageMabob(persistenceType);
 
@@ -21,7 +29,7 @@ namespace db_app
 
             var allItems = storageMabob.ReturnItems();
 
-            foreach(var item in allItems)
+            foreach (var item in allItems)
             {
                 Console.WriteLine(item);
             }

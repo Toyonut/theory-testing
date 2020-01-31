@@ -1,13 +1,20 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace db_app.Models
 {
     public class StorageContext : DbContext
     {
+        private IConfigurationRoot _configuration;
+        public StorageContext(IConfigurationRoot configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<StoredString> StoredStrings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseNpgsql("Server=localhost; Database=testdb; UserName=testuser; Password=testpassword;");
+            => options.UseNpgsql(_configuration["connectionString"]);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
