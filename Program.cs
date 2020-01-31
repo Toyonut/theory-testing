@@ -8,7 +8,8 @@ namespace db_app
     {
         static void Main(string[] args)
         {
-            var persistenceType = new DatabasePersistence();
+            Func<StorageContext> contextFactory = () => new StorageContext();
+            var persistenceType = new DatabasePersistence(contextFactory);
             var storageMabob = new StorageMabob(persistenceType);
 
             string[] items = { "foo", "bar", "baz", "foz", "buz", "biz" };

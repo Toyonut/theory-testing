@@ -7,13 +7,16 @@ namespace db_app.PersistenceProviders
 {
     public class DatabasePersistence : IPersistenceProvider
     {
-        public DatabasePersistence()
+        private Func<StorageContext> _storageContextFactory;
+
+        public DatabasePersistence(Func<StorageContext> storageContextFactory)
         {
+            _storageContextFactory = storageContextFactory;
         }
 
         public void AddItem(string item)
         {
-            using (var db = new StorageContext())
+            using (var db = _storageContextFactory())
             {
                 var i = new StoredString()
                 {
@@ -35,7 +38,7 @@ namespace db_app.PersistenceProviders
 
         public void DeleteItem(string item)
         {
-            using (var db = new StorageContext())
+            using (var db = _storageContextFactory())
             {
                 var i = new StoredString()
                 {
@@ -48,7 +51,7 @@ namespace db_app.PersistenceProviders
 
         public List<string> ReturnItems()
         {
-            using (var db = new StorageContext())
+            using (var db = _storageContextFactory())
             {
                 var stored = db.StoredStrings
                     .OrderBy(s => s.Id)
