@@ -5,8 +5,8 @@ namespace theory_testing.Models
 {
     public class StorageContext : DbContext
     {
-        private IConfigurationRoot _configuration;
-        public StorageContext(IConfigurationRoot configuration)
+        private ISettingsCodex _configuration;
+        public StorageContext(ISettingsCodex configuration)
         {
             _configuration = configuration;
         }
@@ -14,7 +14,7 @@ namespace theory_testing.Models
         public DbSet<StoredString> StoredStrings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseNpgsql(_configuration["connectionString"]);
+            => options.UseNpgsql(_configuration.GetConnectionString());
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

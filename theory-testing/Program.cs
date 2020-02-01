@@ -1,8 +1,6 @@
 ﻿using System;
 using theory_testing.PersistenceProviders;
 using theory_testing.Models;
-using Microsoft.Extensions.Configuration;
-using System.IO;
 using Autofac;
 
 namespace theory_testing
@@ -11,17 +9,15 @@ namespace theory_testing
     {
         static void Main(string[] args)
         {
-            var configBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-            var configuration = configBuilder.Build();
-
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<DatabasePersistence>().As<IPersistenceProvider>();
+            containerBuilder.RegisterType<SettingsCodex>().As<ISettingsCodex>();
             var Container = containerBuilder.Build();
 
             using (var scope = Container.BeginLifetimeScope())
             {
+                var configuration = scope.Resolve<ISettingsCodex>();
+
                 Func<StorageContext> contextFactory = () => new StorageContext(configuration);
 
                 var dbContext = new NamedParameter("storageContextFactory", contextFactory);
