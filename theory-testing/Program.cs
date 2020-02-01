@@ -3,6 +3,7 @@ using theory_testing.PersistenceProviders;
 using theory_testing.Models;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Autofac;
 
 namespace theory_testing
 {
@@ -10,28 +11,36 @@ namespace theory_testing
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
+            var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+            var configuration = configBuilder.Build();
 
-            var configuration = builder.Build();
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<DatabasePersistence>().As<IPersistenceProvider>();
+            var Container = containerBuilder.Build();
 
-            Func<StorageContext> contextFactory = () => new StorageContext(configuration);
-            var persistenceType = new DatabasePersistence(contextFactory);
-            var storageMabob = new StorageMabob(persistenceType);
-
-            string[] items = { "foo", "bar", "baz", "foz", "buz", "biz" };
-
-            foreach (var item in items)
+            using (var scope = Container.BeginLifetimeScope())
             {
-                storageMabob.AddItem(item);
-            }
+                Func<StorageContext> contextFactory = () => new StorageContext(configuration);
 
-            var allItems = storageMabob.ReturnItems();
+                var dbContext = new NamedParameter("storageContextFactory", contextFactory);
+                var persistenceType = scope.Resolve<IPersistenceProvider>(dbContext);
+                var storageMabob = new StorageMabob(persistenceType);
 
-            foreach (var item in allItems)
-            {
-                Console.WriteLine(item);
+                string[] items = { "foo", "bar", "baz", "foz", "buz", "biz" };
+
+                foreach (var item in items)
+                {
+                    storageMabob.AddItem(item);
+                }
+
+                var allItems = storageMabob.ReturnItems();
+
+                foreach (var item in allItems)
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
     }
