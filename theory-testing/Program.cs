@@ -11,7 +11,7 @@ namespace theory_testing
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<DatabasePersistence>().As<IPersistenceProvider>();
-            containerBuilder.RegisterType<SettingsCodex>().As<ISettingsCodex>();
+            containerBuilder.RegisterType<SettingsCodex>().As<ISettingsCodex>().SingleInstance();
             var Container = containerBuilder.Build();
 
             using (var scope = Container.BeginLifetimeScope())
