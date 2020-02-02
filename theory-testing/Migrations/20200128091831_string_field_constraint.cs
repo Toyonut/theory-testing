@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace db_app.Migrations
+namespace theory_testing.Migrations
 {
     public partial class string_field_constraint : Migration
     {

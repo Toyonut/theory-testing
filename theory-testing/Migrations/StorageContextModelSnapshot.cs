@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using theory_testing.Models;
 
-namespace db_app.Migrations
+namespace theory_testing.Migrations
 {
     [DbContext(typeof(StorageContext))]
     partial class StorageContextModelSnapshot : ModelSnapshot
@@ -18,7 +18,7 @@ namespace db_app.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("db_app.Models.StoredString", b =>
+            modelBuilder.Entity("theory_testing.Models.StoredString", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
